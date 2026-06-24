@@ -33,8 +33,10 @@
           <a href="#opex" class="text-sm hover:text-teal-600">التشغيل</a>
           <a href="#governance" class="text-sm hover:text-teal-600">الحوكمة</a>
           <a href="#simulator" class="text-sm hover:text-teal-600">محاكي مالي</a>
+          <a href="/post-manshur.html" class="text-sm hover:text-teal-600">المنشور</a>
           <a href="#contact" class="text-sm text-white bg-teal-600 px-3 py-2 rounded">تواصل</a>
         </nav>
+
         <div class="md:hidden">
           <button id="menuBtn" class="p-2 rounded hover:bg-gray-100">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -49,8 +51,9 @@
           <a href="#structure" class="text-sm py-2">الهيكل</a>
           <a href="#capex" class="text-sm py-2">CAPEX</a>
           <a href="#opex" class="text-sm py-2">التشغيل</a>
-          <a href="#governance" class="text-sm py-2">الحوكمة</a>
+          <a href="#governance" class="text-sm py-2">الاستدامة</a>
           <a href="#simulator" class="text-sm py-2">محاكي مالي</a>
+          <a href="/post-manshur.html" class="text-sm py-2">المنشور</a>
           <a href="#contact" class="text-sm py-2 text-white bg-teal-600 px-3 py-2 rounded w-max">تواصل</a>
         </div>
       </div>
@@ -195,6 +198,14 @@
         </div>
       </section>
 
+      <section id="postLink" class="max-w-7xl mx-auto px-6 py-6">
+        <div class="bg-white p-6 rounded shadow">
+          <h3 class="text-xl font-bold mb-3">المنشور الرسمي</h3>
+          <p class="text-gray-700 mb-3">نُشِر منشور تفصيلي يشرح المشروع بصيغة جاهزة للنسخ والنشر على المنصات. اقرأ المنشور الكامل واضغط للنسخ والنشر.</p>
+          <a href="/post-manshur.html" class="inline-block bg-teal-600 text-white px-4 py-2 rounded">اقرأ المنشور الكامل</a>
+        </div>
+      </section>
+
       <section id="contact" class="max-w-7xl mx-auto px-6 py-8">
         <div class="bg-white p-6 rounded shadow">
           <h3 class="text-xl font-bold mb-3">تواصل</h3>
@@ -229,7 +240,6 @@ menuBtn && menuBtn.addEventListener('click', ()=> mobileMenu.classList.toggle('h
 function format(num){ return Number(num).toLocaleString('en-US'); }
 
 function calculateIRR(cashFlows, guess = 0.1){
-  // Newton-Raphson
   let x0 = guess; const maxIter = 1000; const tol = 1e-6;
   for(let i=0;i<maxIter;i++){
     let f = 0, df = 0;
@@ -250,21 +260,18 @@ function runSimulator(){
   const pct = Number(document.getElementById('supportPct').value)/100 || 0;
   const years = Number(document.getElementById('yearsInput').value) || 15;
 
-  const net = gross * (1 - pct); // after support
+  const net = gross * (1 - pct);
   const summary = document.getElementById('resSummary');
   summary.innerHTML = `<div>صافي التدفق السنوي بعد استقطاع التكافل (${Math.round(pct*100)}%): <strong>${format(Math.round(net))} ج.م</strong></div>`;
 
-  // Payback (simple)
   const payback = capex / net;
   summary.innerHTML += `<div class="mt-2">فترة الاسترداد التقريبية: <strong>${isFinite(payback)?payback.toFixed(2):'—'} سنة</strong></div>`;
 
-  // Build cash flow array for IRR: initial -capex, then net each year
   const cashFlows = [-capex];
   for(let y=1;y<=years;y++) cashFlows.push(net);
   const irr = calculateIRR(cashFlows);
   summary.innerHTML += `<div class="mt-2">IRR تقريبي على ${years} سنة: <strong>${irr? ( (irr*100).toFixed(2) + '%' ) : 'غير قابل للحساب'}</strong></div>`;
 
-  // Build table
   let html = '<table class="min-w-full text-sm"><thead><tr class="text-right"><th class="pr-3">السنة</th><th class="pr-3">التدفق النقدي (ج.م)</th><th class="pr-3">التدفق التراكمي (ج.م)</th></tr></thead><tbody>';
   let cum = -capex;
   html += `<tr class="border-t"><td class="pr-3">0</td><td class="pr-3">-${format(capex)}</td><td class="pr-3">${format(cum)}</td></tr>`;
@@ -275,7 +282,6 @@ function runSimulator(){
   html += '</tbody></table>';
   document.getElementById('resTable').innerHTML = html;
 
-  // store last for CSV
   window._lastSim = { capex, gross, pct, net, years, payback, irr, tableHtml: html };
 }
 
@@ -298,7 +304,6 @@ document.getElementById('exportCsv').addEventListener('click', ()=>{
   a.href = url; a.download = 'simulation.csv'; document.body.appendChild(a); a.click(); a.remove();
 });
 
-// initialize
 runSimulator();
 </script>
 </body>
