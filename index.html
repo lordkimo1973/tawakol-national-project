@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>مشروع "مصر المستقبل" - كمال محمد</title>
+  <meta name="description" content="دراسة الجدوى لمجمع 'مصر المستقبل' التعليمي والطبي - نموذج شراكة الدولة والقطاع الخاص (PPP) مع آلية دعم تكافلي." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { --accent: #0ea5a3; }
+    body { font-family: 'Cairo', sans-serif; }
+    ::-webkit-scrollbar { height: 10px; width: 10px; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <div class="min-h-screen flex flex-col">
+    <header class="bg-white shadow-sm">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 bg-gradient-to-tr from-teal-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold">م</div>
+          <div>
+            <h1 class="text-lg font-extrabold text-sky-900">مشروع مصر المستقبل</h1>
+            <p class="text-sm text-gray-500">دراسة الجدوى الشاملة — كمال محمد</p>
+          </div>
+        </div>
+        <nav class="hidden md:flex items-center gap-4">
+          <a href="#overview" class="text-sm hover:text-teal-600">الرؤية</a>
+          <a href="#structure" class="text-sm hover:text-teal-600">الهيكل</a>
+          <a href="#capex" class="text-sm hover:text-teal-600">CAPEX</a>
+          <a href="#opex" class="text-sm hover:text-teal-600">التشغيل</a>
+          <a href="#governance" class="text-sm hover:text-teal-600">الحوكمة</a>
+          <a href="#simulator" class="text-sm hover:text-teal-600">محاكي مالي</a>
+          <a href="#contact" class="text-sm text-white bg-teal-600 px-3 py-2 rounded">تواصل</a>
+        </nav>
+        <div class="md:hidden">
+          <button id="menuBtn" class="p-2 rounded hover:bg-gray-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div id="mobileMenu" class="hidden border-t bg-white md:hidden">
+        <div class="px-6 py-4 flex flex-col gap-2">
+          <a href="#overview" class="text-sm py-2">الرؤية</a>
+          <a href="#structure" class="text-sm py-2">الهيكل</a>
+          <a href="#capex" class="text-sm py-2">CAPEX</a>
+          <a href="#opex" class="text-sm py-2">التشغيل</a>
+          <a href="#governance" class="text-sm py-2">الحوكمة</a>
+          <a href="#simulator" class="text-sm py-2">محاكي مالي</a>
+          <a href="#contact" class="text-sm py-2 text-white bg-teal-600 px-3 py-2 rounded w-max">تواصل</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1">
+      <section class="bg-gradient-to-bl from-white via-teal-50 to-white py-12">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-sky-900 mb-4">مجمع "مصر المستقبل" — نموذج تكافل استثماري وطني</h2>
+            <p class="text-gray-700 mb-6 leading-relaxed">
+              مجمع متكامل تعليمي وطبي (3 مدارس + 3 مستشفيات) بنظام شراكة استراتيجية بين الدولة والقطاع الخاص (PPP).
+              يحقق ربحية للمستثمر مع تمويل كامل للأقسام الخيرية من خلال آلية استقطاع تكافلي مُلزم بنسبة 20%.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+              <a href="#simulator" class="inline-block bg-teal-600 hover:bg-teal-500 text-white px-4 py-2 rounded">افتح المحاكي المالي</a>
+              <a href="#capex" class="inline-block border border-teal-600 text-teal-600 px-4 py-2 rounded">اطلع على التكاليف التفصيلية</a>
+            </div>
+
+            <div class="mt-6 grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
+              <div class="bg-white p-3 rounded shadow-sm">
+                <div class="text-xs text-gray-500">CAPEX إجمالي</div>
+                <div class="text-lg font-bold text-sky-900">1,500,000,000 ج.م</div>
+              </div>
+              <div class="bg-white p-3 rounded shadow-sm">
+                <div class="text-xs text-gray-500">صافي تدفق سنوي للمستثمر</div>
+                <div class="text-lg font-bold text-sky-900">296,000,000 ج.م</div>
+              </div>
+              <div class="bg-white p-3 rounded shadow-sm">
+                <div class="text-xs text-gray-500">فترة استرداد</div>
+                <div class="text-lg font-bold text-sky-900">≈ 5.1 سنة</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="order-first md:order-last">
+            <div class="bg-white rounded-lg shadow p-6">
+              <h3 class="text-lg font-bold text-sky-800 mb-3">روابط المنصة الرسمية</h3>
+              <ul class="flex flex-col gap-2 text-sm">
+                <li><a href="https://t.me/+Ddlnkc6aEw5mYzg0" target="_blank" class="text-teal-600 hover:underline">تليجرام</a></li>
+                <li><a href="https://k.kwai.com/u/@73masr73masr/b17QCy9C" target="_blank" class="text-teal-600 hover:underline">كواي</a></li>
+                <li><a href="https://youtube.com/@long73live73?si=w_fc_JILhPammgbW" target="_blank" class="text-teal-600 hover:underline">يوتيوب</a></li>
+                <li><a href="https://www.facebook.com/share/1EcLp8VFvK/" target="_blank" class="text-teal-600 hover:underline">فيسبوك</a></li>
+              </ul>
+
+              <div class="mt-4">
+                <button id="openSimBtn" class="w-full bg-sky-700 hover:bg-sky-600 text-white px-3 py-2 rounded">فتح المحاكي المالي</button>
+                <a id="downloadPdf" class="mt-3 block text-center text-sm text-gray-600 hover:underline" href="#">تحميل ملف التقرير (PDF)</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="overview" class="max-w-7xl mx-auto px-6 py-10">
+        <div class="bg-white rounded-lg shadow p-6">
+          <h3 class="text-2xl font-bold mb-3">الرؤية العامة والهدف الاستراتيجي</h3>
+          <p class="text-gray-700 leading-relaxed">ينطلق مشروع "مصر المستقبل" كصيغة استثمارية وطنية مبتكرة قائمة على آلية الشراكة الإستراتيجية بين الدولة والقطاع الخاص (نظام PPP). يهدف المشروع إلى حل مشكلات التعليم والصحة والبطالة بالتوازي، من خلال إنشاء مجمعات خدمية متكاملة تعتمد على نظام "الدعم التبادلي التكافلي".</p>
+        </div>
+      </section>
+
+      <section id="capex" class="max-w-7xl mx-auto px-6 py-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white p-5 rounded shadow">
+          <h4 class="font-bold mb-2">الشق التعليمي</h4>
+          <ul class="text-sm text-gray-700 space-y-1">
+            <li>المدرسة الاستثمارية الدولية: 200,000,000 ج.م</li>
+            <li>المدرسة الاقتصادية: 100,000,000 ج.م</li>
+            <li>المدرسة الخيرية: 80,000,000 ج.م</li>
+            <li class="mt-2 font-bold">إجمالي التعليم: 380,000,000 ج.م</li>
+          </ul>
+        </div>
+        <div class="bg-white p-5 rounded shadow">
+          <h4 class="font-bold mb-2">الشق الصحي</h4>
+          <ul class="text-sm text-gray-700 space-y-1">
+            <li>المستشفى الاستثماري: 600,000,000 ج.م</li>
+            <li>المستشفى الاقتصادي: 300,000,000 ج.م</li>
+            <li>المستشفى الخيري: 220,000,000 ج.م</li>
+            <li class="mt-2 font-bold">إجمالي الصحة: 1,120,000,000 ج.م</li>
+          </ul>
+        </div>
+        <div class="bg-white p-5 rounded shadow">
+          <h4 class="font-bold mb-2">الإجمالي</h4>
+          <div class="text-gray-700">إجمالي CAPEX للمشروع: <span class="font-bold">1,500,000,000 ج.م</span></div>
+        </div>
+      </section>
+
+      <section id="opex" class="max-w-7xl mx-auto px-6 py-6">
+        <div class="bg-white p-6 rounded shadow">
+          <h3 class="text-xl font-bold mb-3">التشغيل والدعم التكافلي (سنوياً)</h3>
+          <p class="text-gray-700">مثال مختصر: صافي التدفق السنوي للمستثمر بعد خصم مخصص التكافل (20%) = <strong>296,000,000 ج.م</strong>. تغطي مخصصات التكافل كامل احتياجات المدارس والمستشفى الخيري.</p>
+        </div>
+      </section>
+
+      <section id="simulator" class="max-w-7xl mx-auto px-6 py-8">
+        <div class="bg-white p-6 rounded shadow">
+          <h3 class="text-2xl font-bold mb-4">محاكي مالي مبسّط</h3>
+          <p class="text-gray-700 mb-4">جرب تغيير القيم الأساسية لترى تأثيرها على فترة الاسترداد وصافي التدفق السنوي.</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm text-gray-600">إجمالي CAPEX (ج.م)</label>
+              <input id="capexInput" type="number" value="1500000000" class="w-full mt-2 p-2 border rounded" />
+            </div>
+            <div>
+              <label class="block text-sm text-gray-600">صافي تدفق سنوي للمستثمر قبل التكافل (ج.م)</label>
+              <input id="cashFlowInput" type="number" value="362000000" class="w-full mt-2 p-2 border rounded" />
+              <div class="text-xs text-gray-500 mt-1">(مثال: إجمالي أرباح قبل استقطاع 20% = 362 مليون → بعد التكافل 296 مليون)</div>
+            </div>
+
+            <div>
+              <label class="block text-sm text-gray-600">نسبة التكافل (%)</label>
+              <input id="supportPct" type="number" value="20" class="w-full mt-2 p-2 border rounded" />
+            </div>
+            <div>
+              <label class="block text-sm text-gray-600">مدة الحساب (سنوات)</label>
+              <input id="yearsInput" type="number" value="15" class="w-full mt-2 p-2 border rounded" />
+            </div>
+
+            <div class="md:col-span-2">
+              <button id="runSim" class="bg-teal-600 text-white px-4 py-2 rounded">تشغيل المحاكي</button>
+            </div>
+
+            <div class="md:col-span-2">
+              <div id="results" class="bg-gray-50 p-4 rounded border">
+                <div id="resSummary" class="text-gray-800"></div>
+                <div id="resTable" class="mt-3 overflow-auto"></div>
+                <div class="mt-3 flex gap-2">
+                  <button id="exportCsv" class="bg-sky-700 text-white px-3 py-2 rounded">تصدير CSV</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <section id="governance" class="max-w-7xl mx-auto px-6 py-6">
+        <div class="bg-white p-6 rounded shadow">
+          <h3 class="text-xl font-bold mb-3">الحوكمة والرقابة</h3>
+          <p class="text-gray-700">آليات رقابية مقترحة: حساب تكافل مقفول تديره جهة مستقلة، مراجعة دورية من الجهاز المركزي للمحاسبات، إشراف وزارات الصحة والتعليم، وإجراءات عقابية محددة مسبقاً.</p>
+        </div>
+      </section>
+
+      <section id="contact" class="max-w-7xl mx-auto px-6 py-8">
+        <div class="bg-white p-6 rounded shadow">
+          <h3 class="text-xl font-bold mb-3">تواصل</h3>
+          <p class="text-gray-700">الاسم: <strong>كمال محمد</strong></p>
+          <p class="text-gray-700">المنصة: <strong>هجمة مرتدة مصرية — اسلمي يا مصرُ إنني الفدا</strong></p>
+          <div class="mt-3 flex flex-col sm:flex-row gap-3">
+            <a href="https://t.me/+Ddlnkc6aEw5mYzg0" target="_blank" class="text-teal-600">تليجرام</a>
+            <a href="https://k.kwai.com/u/@73masr73masr/b17QCy9C" target="_blank" class="text-teal-600">كواي</a>
+            <a href="https://youtube.com/@long73live73?si=w_fc_JILhPammgbW" target="_blank" class="text-teal-600">يوتيوب</a>
+            <a href="https://www.facebook.com/share/1EcLp8VFvK/" target="_blank" class="text-teal-600">فيسبوك</a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="bg-white border-t py-4">
+      <div class="max-w-7xl mx-auto px-6 text-sm text-gray-600 flex items-center justify-between">
+        <div>© 2026 كمال محمد — مشروع مصر المستقبل</div>
+        <div>مستودع: <span class="font-mono">lordkimo1973/tawakol-national-project</span></div>
+      </div>
+    </footer>
+  </div>
+
+<script>
+// Mobile menu
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+menuBtn && menuBtn.addEventListener('click', ()=> mobileMenu.classList.toggle('hidden'));
+
+// Simulator
+function format(num){ return Number(num).toLocaleString('en-US'); }
+
+function calculateIRR(cashFlows, guess = 0.1){
+  // Newton-Raphson
+  let x0 = guess; const maxIter = 1000; const tol = 1e-6;
+  for(let i=0;i<maxIter;i++){
+    let f = 0, df = 0;
+    for(let t=0;t<cashFlows.length;t++){
+      f += cashFlows[t] / Math.pow(1+x0, t);
+      df += -t * cashFlows[t] / Math.pow(1+x0, t+1);
+    }
+    if(Math.abs(f) < tol) return x0;
+    x0 = x0 - f/df;
+    if(!isFinite(x0) || x0 < -0.9999) return null;
+  }
+  return null;
+}
+
+function runSimulator(){
+  const capex = Number(document.getElementById('capexInput').value) || 0;
+  const gross = Number(document.getElementById('cashFlowInput').value) || 0;
+  const pct = Number(document.getElementById('supportPct').value)/100 || 0;
+  const years = Number(document.getElementById('yearsInput').value) || 15;
+
+  const net = gross * (1 - pct); // after support
+  const summary = document.getElementById('resSummary');
+  summary.innerHTML = `<div>صافي التدفق السنوي بعد استقطاع التكافل (${Math.round(pct*100)}%): <strong>${format(Math.round(net))} ج.م</strong></div>`;
+
+  // Payback (simple)
+  const payback = capex / net;
+  summary.innerHTML += `<div class="mt-2">فترة الاسترداد التقريبية: <strong>${isFinite(payback)?payback.toFixed(2):'—'} سنة</strong></div>`;
+
+  // Build cash flow array for IRR: initial -capex, then net each year
+  const cashFlows = [-capex];
+  for(let y=1;y<=years;y++) cashFlows.push(net);
+  const irr = calculateIRR(cashFlows);
+  summary.innerHTML += `<div class="mt-2">IRR تقريبي على ${years} سنة: <strong>${irr? ( (irr*100).toFixed(2) + '%' ) : 'غير قابل للحساب'}</strong></div>`;
+
+  // Build table
+  let html = '<table class="min-w-full text-sm"><thead><tr class="text-right"><th class="pr-3">السنة</th><th class="pr-3">التدفق النقدي (ج.م)</th><th class="pr-3">التدفق التراكمي (ج.م)</th></tr></thead><tbody>';
+  let cum = -capex;
+  html += `<tr class="border-t"><td class="pr-3">0</td><td class="pr-3">-${format(capex)}</td><td class="pr-3">${format(cum)}</td></tr>`;
+  for(let y=1;y<=years;y++){
+    cum += net;
+    html += `<tr class="border-t"><td class="pr-3">${y}</td><td class="pr-3">${format(Math.round(net))}</td><td class="pr-3">${format(Math.round(cum))}</td></tr>`;
+  }
+  html += '</tbody></table>';
+  document.getElementById('resTable').innerHTML = html;
+
+  // store last for CSV
+  window._lastSim = { capex, gross, pct, net, years, payback, irr, tableHtml: html };
+}
+
+document.getElementById('runSim').addEventListener('click', runSimulator);
+document.getElementById('openSimBtn').addEventListener('click', ()=> location.href = '#simulator');
+
+document.getElementById('exportCsv').addEventListener('click', ()=>{
+  const s = window._lastSim;
+  if(!s) return alert('شغّل المحاكي أولاً');
+  let csv = 'السنة,التدفق النقدي,التدفق التراكمي\n';
+  let cum = -s.capex;
+  csv += `0,-${s.capex},${cum}\n`;
+  for(let y=1;y<=s.years;y++){
+    cum += s.net;
+    csv += `${y},${s.net},${cum}\n`;
+  }
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'simulation.csv'; document.body.appendChild(a); a.click(); a.remove();
+});
+
+// initialize
+runSimulator();
+</script>
+</body>
+</html>
