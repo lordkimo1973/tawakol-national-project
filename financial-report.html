@@ -6,6 +6,7 @@
     <title>مشروع مصر المستقبل - التقرير المالي الشامل</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { scroll-behavior: smooth; }
@@ -31,23 +32,58 @@
         th, td { padding: 12px; text-align: right; border-bottom: 1px solid #e5e7eb; }
         th { background: #1e3a8a; color: white; }
         tr:hover { background: #f3f4f6; }
+        @media print {
+            nav, .no-print { display: none !important; }
+            body { margin: 0; padding: 20px; }
+            .section { page-break-inside: avoid; }
+        }
+        .language-toggle { position: fixed; top: 70px; right: 20px; z-index: 40; }
     </style>
 </head>
 <body class="bg-gray-50">
+    <!-- Language Toggle & Print Button -->
+    <div class="language-toggle flex gap-2">
+        <button onclick="printDocument()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow-lg flex items-center gap-2 no-print">
+            <i class="fas fa-print"></i> اطبع
+        </button>
+        <button onclick="switchLanguage()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow-lg no-print">
+            <span class="ar-text">English</span>
+            <span class="en-text" style="display:none;">العربية</span>
+        </button>
+    </div>
+
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 gradient-bg text-white shadow-lg">
+    <nav class="sticky top-0 z-50 gradient-bg text-white shadow-lg no-print">
         <div class="max-w-7xl mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center gap-2">
                     <i class="fas fa-landmark text-2xl text-yellow-400"></i>
-                    <span class="font-bold text-xl">مصر المستقبل</span>
+                    <span class="font-bold text-xl">
+                        <span class="ar-text">مصر المستقبل</span>
+                        <span class="en-text" style="display:none;">Egypt's Future</span>
+                    </span>
                 </div>
                 <div class="hidden md:flex gap-2 text-sm flex-wrap justify-end">
-                    <a href="#section1" class="hover:text-yellow-400">1. الفرضيات</a>
-                    <a href="#section2" class="hover:text-yellow-400">2. CAPEX</a>
-                    <a href="#section3" class="hover:text-yellow-400">3. OPEX</a>
-                    <a href="#section4" class="hover:text-yellow-400">4. المؤشرات</a>
-                    <a href="#section5" class="hover:text-yellow-400">5. المردود</a>
+                    <a href="#section1" class="hover:text-yellow-400">
+                        <span class="ar-text">1. الفرضيات</span>
+                        <span class="en-text" style="display:none;">1. Assumptions</span>
+                    </a>
+                    <a href="#section2" class="hover:text-yellow-400">
+                        <span class="ar-text">2. CAPEX</span>
+                        <span class="en-text" style="display:none;">2. CAPEX</span>
+                    </a>
+                    <a href="#section3" class="hover:text-yellow-400">
+                        <span class="ar-text">3. OPEX</span>
+                        <span class="en-text" style="display:none;">3. OPEX</span>
+                    </a>
+                    <a href="#section4" class="hover:text-yellow-400">
+                        <span class="ar-text">4. المؤشرات</span>
+                        <span class="en-text" style="display:none;">4. Indicators</span>
+                    </a>
+                    <a href="#section5" class="hover:text-yellow-400">
+                        <span class="ar-text">5. المردود</span>
+                        <span class="en-text" style="display:none;">5. Benefits</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -56,50 +92,92 @@
     <!-- Hero Section -->
     <section class="gradient-bg text-white py-16 text-center fade-in">
         <div class="max-w-4xl mx-auto px-4">
-            <h1 class="text-4xl font-bold mb-3">📊 تقرير المراجعة المالية الشامل</h1>
-            <p class="text-xl mb-2">دراسة الجدوى التفصيلية لمجمع "مصر المستقبل" التعليمي والطبي</p>
-            <p class="text-sm text-gray-300">إعداد: كمال محمد | منصة "هجمة مرتدة مصرية"</p>
+            <h1 class="text-4xl font-bold mb-3">
+                <span class="ar-text">📊 تقرير المراجعة المالية الشامل</span>
+                <span class="en-text" style="display:none;">📊 Comprehensive Financial Review Report</span>
+            </h1>
+            <p class="text-xl mb-2">
+                <span class="ar-text">دراسة الجدوى التفصيلية لمجمع "مصر المستقبل" التعليمي والطبي</span>
+                <span class="en-text" style="display:none;">Detailed Feasibility Study for "Egypt's Future Complex" Educational and Medical</span>
+            </p>
+            <p class="text-sm text-gray-300">
+                <span class="ar-text">إعداد: كمال محمد | منصة "هجمة مرتدة مصرية"</span>
+                <span class="en-text" style="display:none;">Prepared by: Kamal Mohamed | Platform: "Egyptian Counter-Attack"</span>
+            </p>
         </div>
     </section>
 
     <!-- Table of Contents -->
     <section class="max-w-6xl mx-auto px-4 py-8">
         <div class="bg-white p-6 rounded-lg shadow-lg">
-            <h2 class="text-2xl font-bold text-blue-900 mb-4">📑 محتويات التقرير</h2>
+            <h2 class="text-2xl font-bold text-blue-900 mb-4">
+                <span class="ar-text">📑 محتويات التقرير</span>
+                <span class="en-text" style="display:none;">📑 Report Contents</span>
+            </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="flex items-start gap-3 p-3 bg-blue-50 rounded">
                     <span class="section-number">1</span>
                     <div>
-                        <h3 class="font-bold">الفرضيات الأساسية</h3>
-                        <p class="text-sm text-gray-600">سنة الأساس 2026 والافتراضات المالية</p>
+                        <h3 class="font-bold">
+                            <span class="ar-text">الفرضيات الأساسية</span>
+                            <span class="en-text" style="display:none;">Basic Assumptions</span>
+                        </h3>
+                        <p class="text-sm text-gray-600">
+                            <span class="ar-text">سنة الأساس 2026 والافتراضات المالية</span>
+                            <span class="en-text" style="display:none;">2026 Base Year & Financial Assumptions</span>
+                        </p>
                     </div>
                 </div>
                 <div class="flex items-start gap-3 p-3 bg-green-50 rounded">
                     <span class="section-number">2</span>
                     <div>
-                        <h3 class="font-bold">الاستثمارات الرأسمالية</h3>
-                        <p class="text-sm text-gray-600">CAPEX: 1.5 مليار جنيه</p>
+                        <h3 class="font-bold">
+                            <span class="ar-text">الاستثمارات الرأسمالية</span>
+                            <span class="en-text" style="display:none;">Capital Investments</span>
+                        </h3>
+                        <p class="text-sm text-gray-600">
+                            <span class="ar-text">CAPEX: 1.5 مليار جنيه</span>
+                            <span class="en-text" style="display:none;">CAPEX: 1.5 Billion EGP</span>
+                        </p>
                     </div>
                 </div>
                 <div class="flex items-start gap-3 p-3 bg-purple-50 rounded">
                     <span class="section-number">3</span>
                     <div>
-                        <h3 class="font-bold">التشغيل السنوي</h3>
-                        <p class="text-sm text-gray-600">OPEX والإيرادات والتكافل</p>
+                        <h3 class="font-bold">
+                            <span class="ar-text">التشغيل السنوي</span>
+                            <span class="en-text" style="display:none;">Annual Operations</span>
+                        </h3>
+                        <p class="text-sm text-gray-600">
+                            <span class="ar-text">OPEX والإيرادات والتكافل</span>
+                            <span class="en-text" style="display:none;">OPEX, Revenues & Support</span>
+                        </p>
                     </div>
                 </div>
                 <div class="flex items-start gap-3 p-3 bg-orange-50 rounded">
                     <span class="section-number">4</span>
                     <div>
-                        <h3 class="font-bold">المؤشرات المالية</h3>
-                        <p class="text-sm text-gray-600">IRR, Payback, NPV</p>
+                        <h3 class="font-bold">
+                            <span class="ar-text">المؤشرات المالية</span>
+                            <span class="en-text" style="display:none;">Financial Indicators</span>
+                        </h3>
+                        <p class="text-sm text-gray-600">
+                            <span class="ar-text">IRR, Payback, NPV</span>
+                            <span class="en-text" style="display:none;">IRR, Payback, NPV</span>
+                        </p>
                     </div>
                 </div>
                 <div class="flex items-start gap-3 p-3 bg-red-50 rounded">
                     <span class="section-number">5</span>
                     <div>
-                        <h3 class="font-bold">المردود على الدولة</h3>
-                        <p class="text-sm text-gray-600">التوفير والفوائد المباشرة</p>
+                        <h3 class="font-bold">
+                            <span class="ar-text">المردود على الدولة</span>
+                            <span class="en-text" style="display:none;">Government Returns</span>
+                        </h3>
+                        <p class="text-sm text-gray-600">
+                            <span class="ar-text">التوفير والفوائد المباشرة</span>
+                            <span class="en-text" style="display:none;">Savings & Direct Benefits</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -107,48 +185,52 @@
     </section>
 
     <!-- Section 1: Assumptions -->
-    <section id="section1" class="max-w-6xl mx-auto px-4 py-12">
+    <section id="section1" class="max-w-6xl mx-auto px-4 py-12 section">
         <div class="bg-white p-8 rounded-lg shadow-lg">
             <h2 class="text-3xl font-bold text-blue-900 mb-2 flex items-center">
                 <span class="section-number">1</span>
-                الفرضيات الأساسية لدراسة الجدوى (2026)
+                <span class="ar-text">الفرضيات الأساسية لدراسة الجدوى (2026)</span>
+                <span class="en-text" style="display:none;">Basic Feasibility Study Assumptions (2026)</span>
             </h2>
-            <p class="text-gray-600 mb-6">لضمان دقة الأرقام ومطابقتها لواقع السوق المصري</p>
+            <p class="text-gray-600 mb-6">
+                <span class="ar-text">لضمان دقة الأرقام ومطابقتها لواقع السوق المصري</span>
+                <span class="en-text" style="display:none;">To ensure accuracy and alignment with Egyptian market reality</span>
+            </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div class="bg-blue-50 p-5 rounded-lg border-l-4 border-blue-600">
-                    <h3 class="font-bold text-blue-900 mb-2">💰 التمويل والصرف</h3>
+                    <h3 class="font-bold text-blue-900 mb-2">💰 <span class="ar-text">التمويل والصرف</span><span class="en-text" style="display:none;">Financing & Exchange</span></h3>
                     <ul class="text-sm text-gray-700 space-y-2">
-                        <li>✓ تمويل ذاتي: 60% من المستثمر</li>
-                        <li>✓ تسهيلات ائتمانية: 40% من البنوك الوطنية</li>
-                        <li>✓ فائدة مدعومة للمشاريع الخدمية</li>
+                        <li>✓ <span class="ar-text">تمويل ذاتي: 60% من المستثمر</span><span class="en-text" style="display:none;">Self-financing: 60% from investor</span></li>
+                        <li>✓ <span class="ar-text">تسهيلات ائتمانية: 40% من البنوك الوطنية</span><span class="en-text" style="display:none;">Credit facilities: 40% from national banks</span></li>
+                        <li>✓ <span class="ar-text">فائدة مدعومة للمشاريع الخدمية</span><span class="en-text" style="display:none;">Subsidized interest for service projects</span></li>
                     </ul>
                 </div>
 
                 <div class="bg-green-50 p-5 rounded-lg border-l-4 border-green-600">
-                    <h3 class="font-bold text-green-900 mb-2">🏗️ تكلفة الأرض</h3>
+                    <h3 class="font-bold text-green-900 mb-2">🏗️ <span class="ar-text">تكلفة الأرض</span><span class="en-text" style="display:none;">Land Cost</span></h3>
                     <ul class="text-sm text-gray-700 space-y-2">
-                        <li>✓ صفر جنيه من المستثمر</li>
-                        <li>✓ مساهمة عينية من الدولة</li>
-                        <li>✓ حق انتفاع لمدة 40 سنة</li>
+                        <li>✓ <span class="ar-text">صفر جنيه من المستثمر</span><span class="en-text" style="display:none;">Zero cost from investor</span></li>
+                        <li>✓ <span class="ar-text">مساهمة عينية من الدولة</span><span class="en-text" style="display:none;">In-kind contribution from government</span></li>
+                        <li>✓ <span class="ar-text">حق انتفاع لمدة 40 سنة</span><span class="en-text" style="display:none;">Usufruct rights for 40 years</span></li>
                     </ul>
                 </div>
 
                 <div class="bg-purple-50 p-5 rounded-lg border-l-4 border-purple-600">
-                    <h3 class="font-bold text-purple-900 mb-2">📋 الإعفاءات والامتيازات</h3>
+                    <h3 class="font-bold text-purple-900 mb-2">📋 <span class="ar-text">الإعفاءات والامتيازات</span><span class="en-text" style="display:none;">Exemptions & Privileges</span></h3>
                     <ul class="text-sm text-gray-700 space-y-2">
-                        <li>✓ إعفاء ضريبي: 100%</li>
-                        <li>✓ إعفاء جمركي: 100%</li>
-                        <li>✓ على الأجهزة الطبية والمعدات التعليمية</li>
+                        <li>✓ <span class="ar-text">إعفاء ضريبي: 100%</span><span class="en-text" style="display:none;">Tax exemption: 100%</span></li>
+                        <li>✓ <span class="ar-text">إعفاء جمركي: 100%</span><span class="en-text" style="display:none;">Customs exemption: 100%</span></li>
+                        <li>✓ <span class="ar-text">على الأجهزة الطبية والمعدات التعليمية</span><span class="en-text" style="display:none;">On medical devices and educational equipment</span></li>
                     </ul>
                 </div>
 
                 <div class="bg-orange-50 p-5 rounded-lg border-l-4 border-orange-600">
-                    <h3 class="font-bold text-orange-900 mb-2">📈 معدل التضخم</h3>
+                    <h3 class="font-bold text-orange-900 mb-2">📈 <span class="ar-text">معدل التضخم</span><span class="en-text" style="display:none;">Inflation Rate</span></h3>
                     <ul class="text-sm text-gray-700 space-y-2">
-                        <li>✓ على المصروفات: 12% سنوياً</li>
-                        <li>✓ على الإيرادات: 10% سنوياً</li>
-                        <li>✓ معدل تراكمي محسوب</li>
+                        <li>✓ <span class="ar-text">على المصروفات: 12% سنوياً</span><span class="en-text" style="display:none;">On expenses: 12% annually</span></li>
+                        <li>✓ <span class="ar-text">على الإيرادات: 10% سنوياً</span><span class="en-text" style="display:none;">On revenues: 10% annually</span></li>
+                        <li>✓ <span class="ar-text">معدل تراكمي محسوب</span><span class="en-text" style="display:none;">Cumulative rate calculated</span></li>
                     </ul>
                 </div>
             </div>
@@ -156,53 +238,57 @@
     </section>
 
     <!-- Section 2: CAPEX -->
-    <section id="section2" class="max-w-6xl mx-auto px-4 py-12">
+    <section id="section2" class="max-w-6xl mx-auto px-4 py-12 section">
         <div class="bg-white p-8 rounded-lg shadow-lg">
             <h2 class="text-3xl font-bold text-green-900 mb-2 flex items-center">
                 <span class="section-number">2</span>
-                تحليل الاستثمارات الرأسمالية (CAPEX)
+                <span class="ar-text">تحليل الاستثمارات الرأسمالية (CAPEX)</span>
+                <span class="en-text" style="display:none;">Analysis of Capital Investments (CAPEX)</span>
             </h2>
-            <p class="text-gray-600 mb-6">إجمالي الاستثمار: 1.5 مليار جنيه</p>
+            <p class="text-gray-600 mb-6">
+                <span class="ar-text">إجمالي الاستثمار: 1.5 مليار جنيه</span>
+                <span class="en-text" style="display:none;">Total Investment: 1.5 Billion EGP</span>
+            </p>
 
             <!-- Education CAPEX -->
             <div class="mb-8">
-                <h3 class="text-2xl font-bold text-blue-900 mb-4">🎓 القطاع التعليمي (3 مدارس)</h3>
+                <h3 class="text-2xl font-bold text-blue-900 mb-4">🎓 <span class="ar-text">القطاع التعليمي (3 مدارس)</span><span class="en-text" style="display:none;">Education Sector (3 Schools)</span></h3>
                 <div class="overflow-x-auto bg-gray-50 p-4 rounded">
                     <table>
                         <thead>
                             <tr>
-                                <th>المدرسة</th>
-                                <th>المساحة</th>
-                                <th>البناء والتشطيب</th>
-                                <th>التجهيزات</th>
-                                <th>الإجمالي</th>
+                                <th><span class="ar-text">المدرسة</span><span class="en-text" style="display:none;">School</span></th>
+                                <th><span class="ar-text">المساحة</span><span class="en-text" style="display:none;">Area</span></th>
+                                <th><span class="ar-text">البناء والتشطيب</span><span class="en-text" style="display:none;">Construction</span></th>
+                                <th><span class="ar-text">التجهيزات</span><span class="en-text" style="display:none;">Equipment</span></th>
+                                <th><span class="ar-text">الإجمالي</span><span class="en-text" style="display:none;">Total</span></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>الاستثمارية الدولية ⭐</strong></td>
-                                <td>6,000 م²</td>
-                                <td>90 مليون</td>
-                                <td>110 مليون</td>
-                                <td class="font-bold text-yellow-600">200 مليون</td>
+                                <td><strong><span class="ar-text">الاستثمارية الدولية ⭐</span><span class="en-text" style="display:none;">International Investment ⭐</span></strong></td>
+                                <td>6,000 m²</td>
+                                <td>90M</td>
+                                <td>110M</td>
+                                <td class="font-bold text-yellow-600">200M</td>
                             </tr>
                             <tr>
-                                <td><strong>الاقتصادية 💼</strong></td>
-                                <td>5,000 م²</td>
-                                <td>55 مليون</td>
-                                <td>45 مليون</td>
-                                <td class="font-bold text-blue-600">100 مليون</td>
+                                <td><strong><span class="ar-text">الاقتصادية 💼</span><span class="en-text" style="display:none;">Economic 💼</span></strong></td>
+                                <td>5,000 m²</td>
+                                <td>55M</td>
+                                <td>45M</td>
+                                <td class="font-bold text-blue-600">100M</td>
                             </tr>
                             <tr>
-                                <td><strong>الخيرية ❤️</strong></td>
-                                <td>5,000 م²</td>
-                                <td>45 مليون</td>
-                                <td>35 مليون</td>
-                                <td class="font-bold text-green-600">80 مليون</td>
+                                <td><strong><span class="ar-text">الخيرية ❤️</span><span class="en-text" style="display:none;">Charity ❤️</span></strong></td>
+                                <td>5,000 m²</td>
+                                <td>45M</td>
+                                <td>35M</td>
+                                <td class="font-bold text-green-600">80M</td>
                             </tr>
                             <tr class="bg-blue-100 font-bold">
-                                <td colspan="4">إجمالي التعليم</td>
-                                <td>380 مليون</td>
+                                <td colspan="4"><span class="ar-text">إجمالي التعليم</span><span class="en-text" style="display:none;">Education Total</span></td>
+                                <td>380M</td>
                             </tr>
                         </tbody>
                     </table>
@@ -211,43 +297,43 @@
 
             <!-- Healthcare CAPEX -->
             <div class="mb-8">
-                <h3 class="text-2xl font-bold text-green-900 mb-4">🏥 القطاع الصحي (3 مستشفيات)</h3>
+                <h3 class="text-2xl font-bold text-green-900 mb-4">🏥 <span class="ar-text">القطاع الصحي (3 مستشفيات)</span><span class="en-text" style="display:none;">Healthcare Sector (3 Hospitals)</span></h3>
                 <div class="overflow-x-auto bg-gray-50 p-4 rounded">
                     <table>
                         <thead>
                             <tr>
-                                <th>المستشفى</th>
-                                <th>السعة</th>
-                                <th>البناء والتشطيب</th>
-                                <th>الأجهزة الطبية</th>
-                                <th>الإجمالي</th>
+                                <th><span class="ar-text">المستشفى</span><span class="en-text" style="display:none;">Hospital</span></th>
+                                <th><span class="ar-text">السعة</span><span class="en-text" style="display:none;">Capacity</span></th>
+                                <th><span class="ar-text">البناء والتشطيب</span><span class="en-text" style="display:none;">Construction</span></th>
+                                <th><span class="ar-text">الأجهزة الطبية</span><span class="en-text" style="display:none;">Medical Devices</span></th>
+                                <th><span class="ar-text">الإجمالي</span><span class="en-text" style="display:none;">Total</span></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>الاستثماري العالمي ⭐</strong></td>
-                                <td>80 سرير</td>
-                                <td>200 مليون</td>
-                                <td>400 مليون</td>
-                                <td class="font-bold text-yellow-600">600 مليون</td>
+                                <td><strong><span class="ar-text">الاستثماري العالمي ⭐</span><span class="en-text" style="display:none;">International Investment ⭐</span></strong></td>
+                                <td>80 <span class="ar-text">سرير</span><span class="en-text" style="display:none;">beds</span></td>
+                                <td>200M</td>
+                                <td>400M</td>
+                                <td class="font-bold text-yellow-600">600M</td>
                             </tr>
                             <tr>
-                                <td><strong>الاقتصادي 💼</strong></td>
-                                <td>100 سرير</td>
-                                <td>120 مليون</td>
-                                <td>180 مليون</td>
-                                <td class="font-bold text-blue-600">300 مليون</td>
+                                <td><strong><span class="ar-text">الاقتصادي 💼</span><span class="en-text" style="display:none;">Economic 💼</span></strong></td>
+                                <td>100 <span class="ar-text">سرير</span><span class="en-text" style="display:none;">beds</span></td>
+                                <td>120M</td>
+                                <td>180M</td>
+                                <td class="font-bold text-blue-600">300M</td>
                             </tr>
                             <tr>
-                                <td><strong>الخيري ❤️</strong></td>
-                                <td>100 سرير</td>
-                                <td>96 مليون</td>
-                                <td>124 مليون</td>
-                                <td class="font-bold text-green-600">220 مليون</td>
+                                <td><strong><span class="ar-text">الخيري ❤️</span><span class="en-text" style="display:none;">Charity ❤️</span></strong></td>
+                                <td>100 <span class="ar-text">سرير</span><span class="en-text" style="display:none;">beds</span></td>
+                                <td>96M</td>
+                                <td>124M</td>
+                                <td class="font-bold text-green-600">220M</td>
                             </tr>
                             <tr class="bg-green-100 font-bold">
-                                <td colspan="4">إجمالي الصحة</td>
-                                <td>1,120 مليون</td>
+                                <td colspan="4"><span class="ar-text">إجمالي الصحة</span><span class="en-text" style="display:none;">Healthcare Total</span></td>
+                                <td>1,120M</td>
                             </tr>
                         </tbody>
                     </table>
@@ -256,63 +342,85 @@
 
             <!-- Total CAPEX -->
             <div class="bg-gradient-to-r from-blue-900 to-green-900 text-white p-6 rounded-lg text-center">
-                <p class="text-sm mb-2">الإجمالي العام للاستثمارات الرأسمالية</p>
-                <p class="text-5xl font-bold">1,500,000,000 جنيه</p>
-                <p class="text-sm mt-2">1.5 مليار جنيه مصري</p>
+                <p class="text-sm mb-2">
+                    <span class="ar-text">الإجمالي العام للاستثمارات الرأسمالية</span>
+                    <span class="en-text" style="display:none;">Total Capital Investments</span>
+                </p>
+                <p class="text-5xl font-bold">1,500,000,000</p>
+                <p class="text-sm mt-2">
+                    <span class="ar-text">1.5 مليار جنيه مصري</span>
+                    <span class="en-text" style="display:none;">1.5 Billion Egyptian Pounds</span>
+                </p>
             </div>
 
             <!-- CAPEX Chart -->
             <div class="mt-8 p-6 bg-gray-50 rounded-lg">
-                <h4 class="font-bold mb-4">توزيع الاستثمار الرأسمالي</h4>
+                <h4 class="font-bold mb-4">
+                    <span class="ar-text">توزيع الاستثمار الرأسمالي</span>
+                    <span class="en-text" style="display:none;">Capital Investment Distribution</span>
+                </h4>
                 <canvas id="capexChart" height="80"></canvas>
             </div>
         </div>
     </section>
 
     <!-- Section 3: OPEX & Operations -->
-    <section id="section3" class="max-w-6xl mx-auto px-4 py-12">
+    <section id="section3" class="max-w-6xl mx-auto px-4 py-12 section">
         <div class="bg-white p-8 rounded-lg shadow-lg">
             <h2 class="text-3xl font-bold text-purple-900 mb-2 flex items-center">
                 <span class="section-number">3</span>
-                التشغيل السنوي والإيرادات (OPEX)
+                <span class="ar-text">التشغيل السنوي والإيرادات (OPEX)</span>
+                <span class="en-text" style="display:none;">Annual Operations & Revenues (OPEX)</span>
             </h2>
-            <p class="text-gray-600 mb-6">نموذج الدعم التكافلي: المستثمر يدعم الخيري من أرباحه</p>
+            <p class="text-gray-600 mb-6">
+                <span class="ar-text">نموذج الدعم التكافلي: المستثمر يدعم الخيري من أرباحه</span>
+                <span class="en-text" style="display:none;">Mutual Support Model: Investor funds charitable sector from profits</span>
+            </p>
 
             <!-- Education Operations -->
             <div class="mb-8">
-                <h3 class="text-2xl font-bold text-blue-900 mb-4">🎓 القطاع التعليمي (سنوياً)</h3>
+                <h3 class="text-2xl font-bold text-blue-900 mb-4">🎓 <span class="ar-text">القطاع التعليمي (سنوياً)</span><span class="en-text" style="display:none;">Education Sector (Annual)</span></h3>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                     <div class="bg-yellow-50 p-4 rounded border-l-4 border-yellow-500">
-                        <h4 class="font-bold text-yellow-900 mb-3">المدرسة الفاخرة ⭐</h4>
+                        <h4 class="font-bold text-yellow-900 mb-3">
+                            <span class="ar-text">المدرسة الفاخرة ⭐</span>
+                            <span class="en-text" style="display:none;">Premium School ⭐</span>
+                        </h4>
                         <ul class="text-sm space-y-2">
-                            <li><strong>الإيراد:</strong> 150 مليون</li>
-                            <li><strong>المصروفات:</strong> 80 مليون</li>
-                            <li><strong>الأرباح الإجمالية:</strong> 70 مليون</li>
-                            <li><strong>التكافل (20%):</strong> 14 مليون</li>
-                            <li class="text-green-600 font-bold"><strong>الربح الآمن:</strong> 56 مليون</li>
+                            <li><strong><span class="ar-text">الإيراد:</span><span class="en-text" style="display:none;">Revenue:</span></strong> 150M</li>
+                            <li><strong><span class="ar-text">المصروفات:</span><span class="en-text" style="display:none;">Expenses:</span></strong> 80M</li>
+                            <li><strong><span class="ar-text">الأرباح الإجمالية:</span><span class="en-text" style="display:none;">Total Profit:</span></strong> 70M</li>
+                            <li><strong><span class="ar-text">التكافل (20%):</span><span class="en-text" style="display:none;">Support (20%):</span></strong> 14M</li>
+                            <li class="text-green-600 font-bold"><strong><span class="ar-text">الربح الآمن:</span><span class="en-text" style="display:none;">Net Profit:</span></strong> 56M</li>
                         </ul>
                     </div>
 
                     <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
-                        <h4 class="font-bold text-blue-900 mb-3">المدرسة الاقتصادية 💼</h4>
+                        <h4 class="font-bold text-blue-900 mb-3">
+                            <span class="ar-text">المدرسة الاقتصادية 💼</span>
+                            <span class="en-text" style="display:none;">Economic School 💼</span>
+                        </h4>
                         <ul class="text-sm space-y-2">
-                            <li><strong>الطلاب:</strong> 1,200 طالب</li>
-                            <li><strong>الرسوم:</strong> 15,000 جنيه/السنة</li>
-                            <li><strong>الإيراد:</strong> 18 مليون</li>
-                            <li><strong>المصروفات:</strong> 18 مليون</li>
-                            <li class="text-orange-600 font-bold"><strong>الربح:</strong> صفر ✓</li>
+                            <li><strong><span class="ar-text">الطلاب:</span><span class="en-text" style="display:none;">Students:</span></strong> 1,200</li>
+                            <li><strong><span class="ar-text">الرسوم:</span><span class="en-text" style="display:none;">Fees:</span></strong> 15,000/yr</li>
+                            <li><strong><span class="ar-text">الإيراد:</span><span class="en-text" style="display:none;">Revenue:</span></strong> 18M</li>
+                            <li><strong><span class="ar-text">المصروفات:</span><span class="en-text" style="display:none;">Expenses:</span></strong> 18M</li>
+                            <li class="text-orange-600 font-bold"><strong><span class="ar-text">الربح:</span><span class="en-text" style="display:none;">Profit:</span></strong> 0 ✓</li>
                         </ul>
                     </div>
 
                     <div class="bg-green-50 p-4 rounded border-l-4 border-green-500">
-                        <h4 class="font-bold text-green-900 mb-3">المدرسة الخيرية ❤️</h4>
+                        <h4 class="font-bold text-green-900 mb-3">
+                            <span class="ar-text">المدرسة الخيرية ❤️</span>
+                            <span class="en-text" style="display:none;">Charity School ❤️</span>
+                        </h4>
                         <ul class="text-sm space-y-2">
-                            <li><strong>الطلاب:</strong> 1,000 طالب</li>
-                            <li><strong>الرسوم الرمزية:</strong> 1,000 جنيه</li>
-                            <li><strong>الإيراد الذاتي:</strong> 1 مليون</li>
-                            <li><strong>المصروفات:</strong> 15 مليون</li>
-                            <li class="text-purple-600 font-bold"><strong>مموّلة من:</strong> 14 م من الفاخرة</li>
+                            <li><strong><span class="ar-text">الطلاب:</span><span class="en-text" style="display:none;">Students:</span></strong> 1,000</li>
+                            <li><strong><span class="ar-text">الرسوم الرمزية:</span><span class="en-text" style="display:none;">Symbolic Fees:</span></strong> 1,000</li>
+                            <li><strong><span class="ar-text">الإيراد الذاتي:</span><span class="en-text" style="display:none;">Self-Revenue:</span></strong> 1M</li>
+                            <li><strong><span class="ar-text">المصروفات:</span><span class="en-text" style="display:none;">Expenses:</span></strong> 15M</li>
+                            <li class="text-purple-600 font-bold"><strong><span class="ar-text">مموّلة من:</span><span class="en-text" style="display:none;">Funded by:</span></strong> 14M</li>
                         </ul>
                     </div>
                 </div>
@@ -320,41 +428,50 @@
 
             <!-- Healthcare Operations -->
             <div class="mb-8">
-                <h3 class="text-2xl font-bold text-green-900 mb-4">🏥 القطاع الصحي (سنوياً)</h3>
+                <h3 class="text-2xl font-bold text-green-900 mb-4">🏥 <span class="ar-text">القطاع الصحي (سنوياً)</span><span class="en-text" style="display:none;">Healthcare Sector (Annual)</span></h3>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                     <div class="bg-yellow-50 p-4 rounded border-l-4 border-yellow-500">
-                        <h4 class="font-bold text-yellow-900 mb-3">المستشفى الفاخر ⭐</h4>
+                        <h4 class="font-bold text-yellow-900 mb-3">
+                            <span class="ar-text">المستشفى الفاخر ⭐</span>
+                            <span class="en-text" style="display:none;">Premium Hospital ⭐</span>
+                        </h4>
                         <ul class="text-sm space-y-2">
-                            <li><strong>الحالات:</strong> 5,000 حالة</li>
-                            <li><strong>الإيراد:</strong> 800 مليون</li>
-                            <li><strong>المصروفات:</strong> 500 مليون</li>
-                            <li><strong>الأرباح الإجمالية:</strong> 300 مليون</li>
-                            <li><strong>التكافل (20%):</strong> 60 مليون</li>
-                            <li class="text-green-600 font-bold"><strong>الربح:</strong> 240 مليون</li>
+                            <li><strong><span class="ar-text">الحالات:</span><span class="en-text" style="display:none;">Cases:</span></strong> 5,000</li>
+                            <li><strong><span class="ar-text">الإيراد:</span><span class="en-text" style="display:none;">Revenue:</span></strong> 800M</li>
+                            <li><strong><span class="ar-text">المصروفات:</span><span class="en-text" style="display:none;">Expenses:</span></strong> 500M</li>
+                            <li><strong><span class="ar-text">الأرباح الإجمالية:</span><span class="en-text" style="display:none;">Total Profit:</span></strong> 300M</li>
+                            <li><strong><span class="ar-text">التكافل (20%):</span><span class="en-text" style="display:none;">Support (20%):</span></strong> 60M</li>
+                            <li class="text-green-600 font-bold"><strong><span class="ar-text">الربح:</span><span class="en-text" style="display:none;">Profit:</span></strong> 240M</li>
                         </ul>
                     </div>
 
                     <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
-                        <h4 class="font-bold text-blue-900 mb-3">المستشفى الاقتصادي 💼</h4>
+                        <h4 class="font-bold text-blue-900 mb-3">
+                            <span class="ar-text">المستشفى الاقتصادي 💼</span>
+                            <span class="en-text" style="display:none;">Economic Hospital 💼</span>
+                        </h4>
                         <ul class="text-sm space-y-2">
-                            <li><strong>الحالات:</strong> 50,000 حالة/سنة</li>
-                            <li><strong>الإيراد:</strong> 120 مليون</li>
-                            <li><strong>المصروفات:</strong> 120 مليون</li>
-                            <li><strong>خدمات علاجية:</strong> بسعر التكلفة</li>
-                            <li><strong>للطبقة المتوسطة</strong></li>
-                            <li class="text-orange-600 font-bold"><strong>الربح:</strong> صفر ✓</li>
+                            <li><strong><span class="ar-text">الحالات:</span><span class="en-text" style="display:none;">Cases:</span></strong> 50,000/yr</li>
+                            <li><strong><span class="ar-text">الإيراد:</span><span class="en-text" style="display:none;">Revenue:</span></strong> 120M</li>
+                            <li><strong><span class="ar-text">المصروفات:</span><span class="en-text" style="display:none;">Expenses:</span></strong> 120M</li>
+                            <li><strong><span class="ar-text">خدمات بسعر التكلفة</span><span class="en-text" style="display:none;">Cost-based services</span></strong></li>
+                            <li><strong><span class="ar-text">للطبقة المتوسطة</span><span class="en-text" style="display:none;">For middle class</span></strong></li>
+                            <li class="text-orange-600 font-bold"><strong><span class="ar-text">الربح:</span><span class="en-text" style="display:none;">Profit:</span></strong> 0 ✓</li>
                         </ul>
                     </div>
 
                     <div class="bg-green-50 p-4 rounded border-l-4 border-green-500">
-                        <h4 class="font-bold text-green-900 mb-3">المستشفى الخيري ❤️</h4>
+                        <h4 class="font-bold text-green-900 mb-3">
+                            <span class="ar-text">المستشفى الخيري ❤️</span>
+                            <span class="en-text" style="display:none;">Charity Hospital ❤️</span>
+                        </h4>
                         <ul class="text-sm space-y-2">
-                            <li><strong>الحالات:</strong> 60,000 حالة/سنة</li>
-                            <li><strong>العلاج:</strong> مجاني بالكامل</li>
-                            <li><strong>المصروفات:</strong> 60 مليون</li>
-                            <li><strong>لمحدودي الدخل</strong></li>
-                            <li class="text-purple-600 font-bold"><strong>مموّل من:</strong> 60 م من الفاخرة</li>
+                            <li><strong><span class="ar-text">الحالات:</span><span class="en-text" style="display:none;">Cases:</span></strong> 60,000/yr</li>
+                            <li><strong><span class="ar-text">العلاج:</span><span class="en-text" style="display:none;">Treatment:</span></strong> Free</li>
+                            <li><strong><span class="ar-text">المصروفات:</span><span class="en-text" style="display:none;">Expenses:</span></strong> 60M</li>
+                            <li><strong><span class="ar-text">لمحدودي الدخل</span><span class="en-text" style="display:none;">For low income</span></strong></li>
+                            <li class="text-purple-600 font-bold"><strong><span class="ar-text">مموّل من:</span><span class="en-text" style="display:none;">Funded by:</span></strong> 60M</li>
                         </ul>
                     </div>
                 </div>
@@ -362,139 +479,141 @@
 
             <!-- Operations Chart -->
             <div class="bg-gray-50 p-6 rounded-lg">
-                <h4 class="font-bold mb-4">الإيرادات السنوية والتوزيع</h4>
+                <h4 class="font-bold mb-4">
+                    <span class="ar-text">الإيرادات السنوية والتوزيع</span>
+                    <span class="en-text" style="display:none;">Annual Revenues & Distribution</span>
+                </h4>
                 <canvas id="revenueChart" height="80"></canvas>
             </div>
         </div>
     </section>
 
     <!-- Section 4: Financial Indicators -->
-    <section id="section4" class="max-w-6xl mx-auto px-4 py-12">
+    <section id="section4" class="max-w-6xl mx-auto px-4 py-12 section">
         <div class="bg-white p-8 rounded-lg shadow-lg">
             <h2 class="text-3xl font-bold text-orange-900 mb-2 flex items-center">
                 <span class="section-number">4</span>
-                المؤشرات المالية الحيوية
+                <span class="ar-text">المؤشرات المالية الحيوية</span>
+                <span class="en-text" style="display:none;">Key Financial Indicators</span>
             </h2>
-            <p class="text-gray-600 mb-6">تقييم الاستثمار والعائدات</p>
+            <p class="text-gray-600 mb-6">
+                <span class="ar-text">تقييم الاستثمار والعائدات</span>
+                <span class="en-text" style="display:none;">Investment Evaluation & Returns</span>
+            </p>
 
             <!-- Key Metrics -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                 <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-lg border-l-4 border-yellow-600">
-                    <div class="text-sm text-gray-600 mb-2">صافي التدفق النقدي السنوي</div>
+                    <div class="text-sm text-gray-600 mb-2">
+                        <span class="ar-text">صافي التدفق النقدي السنوي</span>
+                        <span class="en-text" style="display:none;">Annual Net Cash Flow</span>
+                    </div>
                     <div class="text-4xl font-bold text-yellow-700">296,000,000</div>
-                    <p class="text-sm text-gray-700 mt-2">جنيه مصري بعد التكافل</p>
+                    <p class="text-sm text-gray-700 mt-2">
+                        <span class="ar-text">جنيه مصري بعد التكافل</span>
+                        <span class="en-text" style="display:none;">EGP after support</span>
+                    </p>
                 </div>
 
                 <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg border-l-4 border-green-600">
-                    <div class="text-sm text-gray-600 mb-2">فترة استرجاع رأس المال</div>
+                    <div class="text-sm text-gray-600 mb-2">
+                        <span class="ar-text">فترة استرجاع رأس المال</span>
+                        <span class="en-text" style="display:none;">Capital Payback Period</span>
+                    </div>
                     <div class="text-4xl font-bold text-green-700">5.06</div>
-                    <p class="text-sm text-gray-700 mt-2">سنوات فقط</p>
+                    <p class="text-sm text-gray-700 mt-2">
+                        <span class="ar-text">سنوات فقط</span>
+                        <span class="en-text" style="display:none;">years only</span>
+                    </p>
                 </div>
 
                 <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg border-l-4 border-blue-600">
-                    <div class="text-sm text-gray-600 mb-2">معدل العائد الداخلي (IRR)</div>
+                    <div class="text-sm text-gray-600 mb-2">
+                        <span class="ar-text">معدل العائد الداخلي (IRR)</span>
+                        <span class="en-text" style="display:none;">Internal Rate of Return (IRR)</span>
+                    </div>
                     <div class="text-4xl font-bold text-blue-700">18.2%</div>
-                    <p class="text-sm text-gray-700 mt-2">على مدى 15 سنة</p>
+                    <p class="text-sm text-gray-700 mt-2">
+                        <span class="ar-text">على مدى 15 سنة</span>
+                        <span class="en-text" style="display:none;">over 15 years</span>
+                    </p>
                 </div>
 
                 <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg border-l-4 border-purple-600">
-                    <div class="text-sm text-gray-600 mb-2">صافي القيمة الحالية (NPV)</div>
+                    <div class="text-sm text-gray-600 mb-2">
+                        <span class="ar-text">صافي القيمة الحالية (NPV)</span>
+                        <span class="en-text" style="display:none;">Net Present Value (NPV)</span>
+                    </div>
                     <div class="text-4xl font-bold text-purple-700">1,850,000,000</div>
-                    <p class="text-sm text-gray-700 mt-2">جنيه عند معدل خصم 14%</p>
-                </div>
-            </div>
-
-            <!-- Detailed Analysis -->
-            <div class="space-y-6">
-                <div class="bg-blue-50 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">1️⃣ حساب فترة الاسترجاع (Payback Period)</h3>
-                    <div class="bg-white p-4 rounded border-l-4 border-blue-600">
-                        <p class="text-gray-700 mb-3">
-                            <strong>الصيغة:</strong> فترة الاسترجاع = إجمالي CAPEX ÷ صافي التدفق السنوي
-                        </p>
-                        <p class="text-gray-700 mb-3">
-                            = 1,500,000,000 ÷ 296,000,000 = <strong class="text-green-600">5.06 سنوات</strong>
-                        </p>
-                        <p class="text-sm text-gray-600">
-                            ✅ في المشاريع الخدمية الضخمة، فترة استرجاع أقل من 6 سنوات تعتبر فرصة استثمارية ذهبية ونادرة جداً
-                        </p>
-                    </div>
-                </div>
-
-                <div class="bg-green-50 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold text-green-900 mb-3">2️⃣ معدل العائد الداخلي (IRR)</h3>
-                    <div class="bg-white p-4 rounded border-l-4 border-green-600">
-                        <p class="text-gray-700 mb-3">
-                            معدل العائد الداخلي يحسب من خلال حساب التدفقات النقدية الخارجة والداخلة على مدار 15 سنة مع الأخذ في الاعتبار القيمة الزمنية للنقود.
-                        </p>
-                        <p class="text-gray-700 mb-3">
-                            <strong class="text-green-600">النتيجة: 18.2%</strong>
-                        </p>
-                        <p class="text-sm text-gray-600">
-                            ✅ يتفوق بوضوح على معظم الاستثمارات التقليدية منخفضة المخاطر والأوعية الادخارية التقليدية
-                        </p>
-                    </div>
-                </div>
-
-                <div class="bg-purple-50 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold text-purple-900 mb-3">3️⃣ صافي القيمة الحالية (NPV)</h3>
-                    <div class="bg-white p-4 rounded border-l-4 border-purple-600">
-                        <p class="text-gray-700 mb-3">
-                            القيمة الحالية للأرباح المتوقعة على مدار فترة الشراكة كاملة بمعدل خصم 14%
-                        </p>
-                        <p class="text-gray-700 mb-3">
-                            <strong class="text-purple-600">NPV = 1,850,000,000 جنيه</strong>
-                        </p>
-                        <p class="text-sm text-gray-600">
-                            ✅ تحقيق أرباح رأسمالية إضافية حقيقية للمستثمر بمجرد البدء في التشغيل
-                        </p>
-                    </div>
+                    <p class="text-sm text-gray-700 mt-2">
+                        <span class="ar-text">جنيه عند معدل خصم 14%</span>
+                        <span class="en-text" style="display:none;">EGP at 14% discount rate</span>
+                    </p>
                 </div>
             </div>
 
             <!-- Cash Flow Chart -->
             <div class="mt-8 p-6 bg-gray-50 rounded-lg">
-                <h4 class="font-bold mb-4">التدفق النقدي التوقعي (15 سنة)</h4>
+                <h4 class="font-bold mb-4">
+                    <span class="ar-text">التدفق النقدي التوقعي (15 سنة)</span>
+                    <span class="en-text" style="display:none;">Projected Cash Flow (15 Years)</span>
+                </h4>
                 <canvas id="cashFlowChart" height="100"></canvas>
             </div>
         </div>
     </section>
 
     <!-- Section 5: Government Benefits -->
-    <section id="section5" class="max-w-6xl mx-auto px-4 py-12">
+    <section id="section5" class="max-w-6xl mx-auto px-4 py-12 section">
         <div class="bg-white p-8 rounded-lg shadow-lg">
             <h2 class="text-3xl font-bold text-red-900 mb-2 flex items-center">
                 <span class="section-number">5</span>
-                المردود المالي على الدولة المصرية
+                <span class="ar-text">المردود المالي على الدولة المصرية</span>
+                <span class="en-text" style="display:none;">Financial Returns to Egypt</span>
             </h2>
-            <p class="text-gray-600 mb-6">ماذا تربح الدولة من هذه الشراكة؟</p>
+            <p class="text-gray-600 mb-6">
+                <span class="ar-text">ماذا تربح الدولة من هذه الشراكة؟</span>
+                <span class="en-text" style="display:none;">What does the state gain from this partnership?</span>
+            </p>
 
             <!-- Government Benefits -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg border-l-4 border-green-600 hover-lift">
                     <div class="text-3xl mb-3">💵</div>
-                    <h3 class="text-xl font-bold text-green-900 mb-2">التوفير الفوري</h3>
+                    <h3 class="text-xl font-bold text-green-900 mb-2">
+                        <span class="ar-text">التوفير الفوري</span>
+                        <span class="en-text" style="display:none;">Immediate Savings</span>
+                    </h3>
                     <p class="text-3xl font-bold text-green-700">1,500,000,000</p>
                     <p class="text-sm text-gray-700 mt-3">
-                        توفير فوري من الموازنة العامة لبناء وتجهيز 3 مدارس و3 مستشفيات
+                        <span class="ar-text">توفير فوري من الموازنة العامة لبناء وتجهيز 3 مدارس و3 مستشفيات</span>
+                        <span class="en-text" style="display:none;">Immediate budget savings for 3 schools & 3 hospitals</span>
                     </p>
                 </div>
 
                 <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg border-l-4 border-blue-600 hover-lift">
                     <div class="text-3xl mb-3">📅</div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-2">التوفير السنوي</h3>
+                    <h3 class="text-xl font-bold text-blue-900 mb-2">
+                        <span class="ar-text">التوفير السنوي</span>
+                        <span class="en-text" style="display:none;">Annual Savings</span>
+                    </h3>
                     <p class="text-3xl font-bold text-blue-700">113,000,000</p>
                     <p class="text-sm text-gray-700 mt-3">
-                        توفير مصروفات التشغيل والصيانة والأجور سنوياً لـ 15+ سنة
+                        <span class="ar-text">توفير مصروفات التشغيل والصيانة والأجور سنوياً</span>
+                        <span class="en-text" style="display:none;">Savings on operations, maintenance & salaries annually</span>
                     </p>
                 </div>
 
                 <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg border-l-4 border-purple-600 hover-lift">
                     <div class="text-3xl mb-3">👥</div>
-                    <h3 class="text-xl font-bold text-purple-900 mb-2">فرص العمل</h3>
+                    <h3 class="text-xl font-bold text-purple-900 mb-2">
+                        <span class="ar-text">فرص العمل</span>
+                        <span class="en-text" style="display:none;">Job Opportunities</span>
+                    </h3>
                     <p class="text-3xl font-bold text-purple-700">650</p>
                     <p class="text-sm text-gray-700 mt-3">
-                        وظيفة مباشرة دائمة بأجور سنوية 70 مليون جنيه
+                        <span class="ar-text">وظيفة مباشرة دائمة بأجور سنوية 70 مليون جنيه</span>
+                        <span class="en-text" style="display:none;">Permanent jobs with 70M annual salaries</span>
                     </p>
                 </div>
             </div>
@@ -502,69 +621,59 @@
             <!-- Detailed Benefits -->
             <div class="space-y-6">
                 <div class="bg-green-50 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold text-green-900 mb-3">أ. التوفير المالي الفوري</h3>
+                    <h3 class="text-xl font-bold text-green-900 mb-3">
+                        <span class="ar-text">أ. التوفير المالي الفوري</span>
+                        <span class="en-text" style="display:none;">A. Immediate Financial Savings</span>
+                    </h3>
                     <div class="bg-white p-4 rounded">
                         <p class="text-gray-700 mb-3">
-                            وفرت الدولة المصرية بشكل مباشر <strong class="text-green-600">1.5 مليار جنيه</strong> كلفة بناء وتشييد وتجهيز 3 مدارس و3 مستشفيات.
+                            <span class="ar-text">وفرت الدولة المصرية بشكل مباشر <strong class="text-green-600">1.5 مليار جنيه</strong> كلفة بناء وتشييد وتجهيز 3 مدارس و3 مستشفيات.</span>
+                            <span class="en-text" style="display:none;">Egypt directly saves <strong class="text-green-600">1.5 billion EGP</strong> on construction costs.</span>
                         </p>
                         <p class="text-gray-700">
-                            هذا المبلغ كان سيتم اقتطاعه من الخزانة العامة للدولة أو الاستدانة لتمويله، مما كان سيرفع عبء الدين العام على الدولة.
+                            <span class="ar-text">هذا المبلغ كان سيتم اقتطاعه من الخزانة العامة للدولة أو الاستدانة لتمويله.</span>
+                            <span class="en-text" style="display:none;">This amount would have required government budget or external borrowing.</span>
                         </p>
                     </div>
                 </div>
 
                 <div class="bg-blue-50 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">ب. التوفير التشغيلي السنوي المستدام</h3>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">
+                        <span class="ar-text">ب. التوفير التشغيلي السنوي المستدام</span>
+                        <span class="en-text" style="display:none;">B. Sustainable Annual Operational Savings</span>
+                    </h3>
                     <div class="bg-white p-4 rounded">
                         <p class="text-gray-700 mb-3">
-                            تشغيل وصيانة وتوفير أجور مدرستين ومستشفيين (اقتصادي وخيري) لخدمة آلاف المواطنين كان سيكلف وزارة الصحة ووزارة التعليم مبلغاً لا يقل عن <strong class="text-blue-600">113 مليون جنيه سنوياً</strong>.
+                            <span class="ar-text">تشغيل وصيانة وتوفير أجور مدرستين ومستشفيين كان سيكلف الدولة <strong class="text-blue-600">113 مليون جنيه سنوياً</strong>.</span>
+                            <span class="en-text" style="display:none;">Operations & salaries would cost the state <strong class="text-blue-600">113 million EGP annually</strong>.</span>
                         </p>
                         <p class="text-gray-700">
-                            هذا العبء تم تحويله بالكامل ليقوم به القطاع الخاص وبجودة وإدارة فندقية ممتازة.
+                            <span class="ar-text">هذا العبء تم تحويله بالكامل ليقوم به القطاع الخاص وبجودة ممتازة.</span>
+                            <span class="en-text" style="display:none;">This burden is now fully handled by the private sector with excellent quality.</span>
                         </p>
                     </div>
                 </div>
 
                 <div class="bg-purple-50 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold text-purple-900 mb-3">ج. معالجة البطالة وتوفير الأجور</h3>
+                    <h3 class="text-xl font-bold text-purple-900 mb-3">
+                        <span class="ar-text">ج. معالجة البطالة وتوفير الأجور</span>
+                        <span class="en-text" style="display:none;">C. Unemployment Reduction & Wages</span>
+                    </h3>
                     <div class="bg-white p-4 rounded">
                         <p class="text-gray-700 mb-3">
-                            المجمع الواحد يوفر <strong class="text-purple-600">650 فرصة عمل مباشرة دامة</strong> للمصريين (أطباء، معلمين، إداريين، عمال).
+                            <span class="ar-text">المجمع الواحد يوفر <strong class="text-purple-600">650 فرصة عمل مباشرة دامة</strong> للمصريين.</span>
+                            <span class="en-text" style="display:none;">Each complex creates <strong class="text-purple-600">650 permanent jobs</strong>.</span>
                         </p>
-                        <p class="text-gray-700">
-                            متوسط فاتورة الأجور السنوية التي يدفعها المستثمر لهؤلاء الموظفين المصريين تبلغ حوالي <strong class="text-purple-600">70 مليون جنيه سنوياً</strong>، مما يساهم مباشرة في:
+                        <p class="text-gray-700 mb-3">
+                            <span class="ar-text">متوسط فاتورة الأجور السنوية <strong class="text-purple-600">70 مليون جنيه</strong>، مما يساهم مباشرة في:</span>
+                            <span class="en-text" style="display:none;">Annual payroll of <strong class="text-purple-600">70 million EGP</strong>, contributing to:</span>
                         </p>
-                        <ul class="text-sm text-gray-700 mt-3 space-y-2">
-                            <li>✓ تحسين معيشة 650 أسرة مصرية</li>
-                            <li>✓ تخفيض معدلات البطالة</li>
-                            <li>✓ تحصيل التأمينات الاجتماعية</li>
-                            <li>✓ تنشيط الأسواق المحلية والاستهلاك</li>
+                        <ul class="text-sm text-gray-700 space-y-2">
+                            <li>✓ <span class="ar-text">تحسين معيشة 650 أسرة مصرية</span><span class="en-text" style="display:none;">Improving livelihoods of 650 families</span></li>
+                            <li>✓ <span class="ar-text">تخفيض معدلات البطالة</span><span class="en-text" style="display:none;">Reducing unemployment rates</span></li>
+                            <li>✓ <span class="ar-text">تحصيل التأمينات الاجتماعية</span><span class="en-text" style="display:none;">Social security contributions</span></li>
+                            <li>✓ <span class="ar-text">تنشيط الأسواق المحلية والاستهلاك</span><span class="en-text" style="display:none;">Boosting local markets & consumption</span></li>
                         </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sensitivity Analysis -->
-            <div class="mt-8 bg-orange-50 p-6 rounded-lg border-l-4 border-orange-600">
-                <h3 class="text-xl font-bold text-orange-900 mb-4">🔍 تحليل الحساسية (Sensitivity Analysis)</h3>
-                <div class="space-y-3">
-                    <div class="bg-white p-4 rounded">
-                        <h4 class="font-bold text-orange-700 mb-2">السيناريو 1: ارتفاع تكاليف البناء 20%</h4>
-                        <p class="text-sm text-gray-700">
-                            CAPEX: 1.5B → 1.8B | Payback: 5 → 6 سنوات | IRR: 18.2% → 15.5% | المشروع يبقى مجدياً ✓
-                        </p>
-                    </div>
-                    <div class="bg-white p-4 rounded">
-                        <h4 class="font-bold text-orange-700 mb-2">السيناريو 2: تراجع السياحة العلاجية 15%</h4>
-                        <p class="text-sm text-gray-700">
-                            يتم التعويض برفع الطاقة الاستيعابية للقسم الاقتصادي مع الحفاظ على مخصصات الخيري ✓
-                        </p>
-                    </div>
-                    <div class="bg-white p-4 rounded">
-                        <h4 class="font-bold text-orange-700 mb-2">السيناريو 3: بدون إعفاءات ضريبية وجمركية</h4>
-                        <p class="text-sm text-gray-700">
-                            CAPEX: 1.5B → 1.95B (+30%) | Payback: 5 → 9 سنوات | دور الدولة في التسهيلات هو العمود الفقري ✓
-                        </p>
                     </div>
                 </div>
             </div>
@@ -572,24 +681,37 @@
     </section>
 
     <!-- Conclusion -->
-    <section class="max-w-6xl mx-auto px-4 py-12 mb-8">
+    <section class="max-w-6xl mx-auto px-4 py-12 mb-8 section">
         <div class="bg-gradient-to-r from-blue-900 to-green-900 text-white p-8 rounded-lg shadow-lg">
-            <h2 class="text-3xl font-bold mb-4">✅ الخاتمة والتوصيات</h2>
+            <h2 class="text-3xl font-bold mb-4">
+                <span class="ar-text">✅ الخاتمة والتوصيات</span>
+                <span class="en-text" style="display:none;">✅ Conclusion & Recommendations</span>
+            </h2>
             <p class="mb-4">
-                تثبت هذه الدراسة المالية الشاملة أن فكرة "مشروع مصر المستقبل" هي نموذج اقتصادي عبقري وقابل للتطبيق الفوري على أرض الواقع المصري.
+                <span class="ar-text">تثبت هذه الدراسة المالية الشاملة أن فكرة "مشروع مصر المستقبل" هي نموذج اقتصادي عبقري وقابل للتطبيق الفوري على أرض الواقع المصري.</span>
+                <span class="en-text" style="display:none;">This comprehensive financial study proves that "Egypt's Future Project" is a brilliant, implementable economic model.</span>
             </p>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="bg-white bg-opacity-10 p-4 rounded">
-                    <h3 class="font-bold mb-2">🏦 الرأسمالية الجاذبة</h3>
-                    <p class="text-sm">عائد ممتاز وسريع وفترة استرجاع قصيرة (5 سنوات)</p>
+                    <h3 class="font-bold mb-2">🏦 <span class="ar-text">الرأسمالية الجاذبة</span><span class="en-text" style="display:none;">Attractive Capitalism</span></h3>
+                    <p class="text-sm">
+                        <span class="ar-text">عائد ممتاز وسريع وفترة استرجاع قصيرة (5 سنوات)</span>
+                        <span class="en-text" style="display:none;">Excellent returns with quick 5-year payback</span>
+                    </p>
                 </div>
                 <div class="bg-white bg-opacity-10 p-4 rounded">
-                    <h3 class="font-bold mb-2">🤝 التضامن الاجتماعي</h3>
-                    <p class="text-sm">دعم تبادلي ذكي ممول من القطاع الخاص دون أعباء على الموازنة</p>
+                    <h3 class="font-bold mb-2">🤝 <span class="ar-text">التضامن الاجتماعي</span><span class="en-text" style="display:none;">Social Solidarity</span></h3>
+                    <p class="text-sm">
+                        <span class="ar-text">دعم تبادلي ذكي ممول من القطاع الخاص دون أعباء على الموازنة</span>
+                        <span class="en-text" style="display:none;">Smart mutual support funded privately, no budget burden</span>
+                    </p>
                 </div>
                 <div class="bg-white bg-opacity-10 p-4 rounded">
-                    <h3 class="font-bold mb-2">🛡️ السيادة الوطنية</h3>
-                    <p class="text-sm">حماية الهوية وضبط الأسعار وحقوق المواطنين</p>
+                    <h3 class="font-bold mb-2">🛡️ <span class="ar-text">السيادة الوطنية</span><span class="en-text" style="display:none;">National Sovereignty</span></h3>
+                    <p class="text-sm">
+                        <span class="ar-text">حماية الهوية وضبط الأسعار وحقوق المواطنين</span>
+                        <span class="en-text" style="display:none;">Protecting identity, controlling prices, citizens' rights</span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -598,19 +720,58 @@
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-8 text-center">
         <div class="max-w-6xl mx-auto px-4">
-            <p class="mb-2">📌 مشروع مصر المستقبل | إعداد: كمال محمد</p>
-            <p class="mb-4 text-sm">منصة "هجمة مرتدة مصرية - اسلمي يا مصرُ إنني الفدا"</p>
-            <p class="text-gray-400 text-sm">© 2026 جميع الحقوق محفوظة | حفظ الله مصر وشعبها العظيم 🇪🇬</p>
+            <p class="mb-2">
+                <span class="ar-text">📌 مشروع مصر المستقبل | إعداد: كمال محمد</span>
+                <span class="en-text" style="display:none;">📌 Egypt's Future Project | Prepared by: Kamal Mohamed</span>
+            </p>
+            <p class="mb-4 text-sm">
+                <span class="ar-text">منصة "هجمة مرتدة مصرية - اسلمي يا مصرُ إنني الفدا"</span>
+                <span class="en-text" style="display:none;">Platform: "Egyptian Counter-Attack - Submit Egypt I am Sacrifice"</span>
+            </p>
+            <p class="text-gray-400 text-sm">
+                <span class="ar-text">© 2026 جميع الحقوق محفوظة | حفظ الله مصر وشعبها العظيم 🇪🇬</span>
+                <span class="en-text" style="display:none;">© 2026 All Rights Reserved | God Protect Egypt & Its Great People 🇪🇬</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        // Language Toggle
+        let isEnglish = false;
+        function switchLanguage() {
+            isEnglish = !isEnglish;
+            const arElements = document.querySelectorAll('.ar-text');
+            const enElements = document.querySelectorAll('.en-text');
+            
+            arElements.forEach(el => el.style.display = isEnglish ? 'none' : 'inline');
+            enElements.forEach(el => el.style.display = isEnglish ? 'inline' : 'none');
+            
+            document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
+            document.documentElement.lang = isEnglish ? 'en' : 'ar';
+        }
+
+        // Print Function with HTML2PDF
+        function printDocument() {
+            const element = document.body;
+            const opt = {
+                margin: 10,
+                filename: isEnglish ? 'Egypt_Future_Complex_Report_EN.pdf' : 'Egypt_Future_Complex_Report_AR.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+
         // CAPEX Chart
         const capexCtx = document.getElementById('capexChart').getContext('2d');
         new Chart(capexCtx, {
             type: 'doughnut',
             data: {
-                labels: ['التعليم (380M)', 'الصحة (1,120M)'],
+                labels: [
+                    isEnglish ? 'Education (380M)' : 'التعليم (380M)',
+                    isEnglish ? 'Healthcare (1,120M)' : 'الصحة (1,120M)'
+                ],
                 datasets: [{
                     data: [380, 1120],
                     backgroundColor: ['#3b82f6', '#10b981'],
@@ -626,9 +787,9 @@
         new Chart(revenueCtx, {
             type: 'bar',
             data: {
-                labels: ['المدارس', 'المستشفيات'],
+                labels: [isEnglish ? 'Schools' : 'المدارس', isEnglish ? 'Hospitals' : 'المستشفيات'],
                 datasets: [{
-                    label: 'الإيراد السنوي (مليون)',
+                    label: isEnglish ? 'Annual Revenue (Millions)' : 'الإيراد السنوي (مليون)',
                     data: [151, 800],
                     backgroundColor: ['#f59e0b', '#ef4444'],
                     borderColor: ['#b45309', '#991b1b'],
@@ -643,9 +804,11 @@
         new Chart(cashFlowCtx, {
             type: 'line',
             data: {
-                labels: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6-10', 'S11-15'],
+                labels: isEnglish 
+                    ? ['Y1', 'Y2', 'Y3', 'Y4', 'Y5', 'Y6-10', 'Y11-15']
+                    : ['S1', 'S2', 'S3', 'S4', 'S5', 'S6-10', 'S11-15'],
                 datasets: [{
-                    label: 'صافي الأرباح (مليون)',
+                    label: isEnglish ? 'Net Profit (Millions)' : 'صافي الأرباح (مليون)',
                     data: [296, 326, 359, 395, 435, 700, 900],
                     borderColor: '#1e3a8a',
                     backgroundColor: 'rgba(30, 58, 138, 0.1)',
